@@ -16,7 +16,7 @@ namespace crm.Business{
                 foreach(string name in names){
 
                     Parent newParent = new Parent();
-                    //newParent.ID = new Guid().ToString();
+                    newParent.ID = Guid.NewGuid();
                     newParent.Name = name;
                     newParent.Phone = "";
                     newParent.Email = "";
