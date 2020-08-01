@@ -7,11 +7,22 @@ namespace crm.Presentation{
     public class Display{
 
         public Display(){
-            Controller.ClearEntries();
-            Controller.AddParents();
-            List<string> parents = Controller.GetParents();
-            foreach(string parent in parents)
-                System.Console.WriteLine(parent);
+
+            RegistrationController.ClearEntries();
+            ParentController.ClearEntries();
+            ChildController.ClearEntries();
+            CourseController.ClearEntries();
+            TeacherController.ClearEntries();
+
+            ParentController.AddParent();
+            ChildController.AddChild();
+            CourseController.AddCourse();
+            TeacherController.AddTeacher();
+            RegistrationController.Registration();
+
+            List<Tuple<Guid, Guid>> registrations = RegistrationController.GetRegistrations();
+            foreach(Tuple<Guid, Guid> reg in registrations) System.Console.WriteLine($"{reg.Item1}       {reg.Item2}");
+
         }
 
     }
