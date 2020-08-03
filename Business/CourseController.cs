@@ -37,9 +37,15 @@ namespace crm.Business{
             }
         }
 
+        public static Course GetRandomCourse(){
+            using(context = new Context()){
+                return context.Courses.ToList()[new Random().Next(context.Courses.ToList().Count)];
+            }
+        }
+
         public static void ClearEntries(){
             using(context = new Context()){
-                while(context.Courses.ToList().Count > 0){
+                while(context.Courses.Count() > 0){
 
                     context.Courses.Remove(context.Courses.First());
                     context.SaveChanges();

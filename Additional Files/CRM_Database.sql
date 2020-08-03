@@ -2,7 +2,7 @@ IF DB_ID('crmDB') IS NULL
 	create database crmDB;
 GO
 use crmDB;
-IF object_id('Parent') IS NULL
+IF object_id('Parents') IS NULL
 	create table Parents
 	(
 		ID uniqueidentifier not null, primary key(ID),
@@ -11,7 +11,7 @@ IF object_id('Parent') IS NULL
 		Email varchar(30) not null,
 		Note varchar(255)
 	)
-IF object_id('Child') IS NULL
+IF object_id('Children') IS NULL
 	create table Children
 	(
 		ID uniqueidentifier not null, primary key(ID),
@@ -26,7 +26,7 @@ IF object_id('Child_Parents') IS NULL
 		ChildId uniqueidentifier not null, foreign key(ChildId) references Children(ID),
 		ParentId uniqueidentifier not null, foreign key(ParentId) references Parents(ID)
 	)
-IF object_id('Course') IS NULL
+IF object_id('Courses') IS NULL
 	create table Courses
 	(
 		ID uniqueidentifier not null, primary key(ID),
@@ -48,7 +48,7 @@ IF object_id('Registrations') IS NULL
 		RegistrationDate date,
 		Note varchar(255)
 	)
-IF object_id('Teacher') IS NULL
+IF object_id('Teachers') IS NULL
 	create table Teachers
 	(
 		ID uniqueidentifier not null, primary key(ID),
@@ -58,7 +58,7 @@ IF object_id('Teacher') IS NULL
 		Fee int,
 		Note varchar(255)
 	)
-IF object_id('Course_Teacher') IS NULL
+IF object_id('Course_Teachers') IS NULL
 	create table Course_Teachers
 	(
 		ID uniqueidentifier not null, primary key(ID),

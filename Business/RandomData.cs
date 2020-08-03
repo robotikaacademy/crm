@@ -1,3 +1,5 @@
+using System.Linq;
+using crm.Data;
 using System;
 
 namespace crm.Business{
@@ -6,7 +8,7 @@ namespace crm.Business{
 
         public static string GetRandomName(){
 
-            string[] names = System.IO.File.ReadAllLines("names.txt");
+            string[] names = System.IO.File.ReadAllLines("Additional Files/names.txt");
             return names[new Random().Next(names.Length)];
 
         }
@@ -20,7 +22,7 @@ namespace crm.Business{
 
             
             date[1] = new Random().Next(1, 13);
-            if(date[1] % 2 == 0)
+            if((date[1] % 2 == 0 && date[1] < 7) || (date[1] % 2 == 1 && date[1] > 7))
                 if(date[1] == 2)
                     if(DateTime.IsLeapYear(date[0])) date[2] = new Random().Next(1, 30);
                     else date[2] = new Random().Next(1, 29);
@@ -32,12 +34,17 @@ namespace crm.Business{
         }
 
         //Make it generate more realistic phone numbers(maybe include country codes)
-        public static string GetRandomPhoneNumber(int n=1){
+        public static string GetRandomPhoneNumber(){
 
             string phoneNumber = "";
-            phoneNumber = "08";
-            phoneNumber += (char)(new Random().Next(7, 10) + '0');
-            for(int j = 0; j < 7; j++) phoneNumber += (char)(new Random().Next(10) + '0');
+
+            while(new Context().Parents.ToList().Any(x => x.Phone == phoneNumber) || new Context().Teachers.ToList().Any(x => x.Phone == phoneNumber)){
+
+                phoneNumber = "08" + (char)(new Random().Next(7, 10) + '0');
+                for(int i = 0; i < 7; i++) phoneNumber += (char)(new Random().Next(10) + '0');
+
+            }
+            
             return phoneNumber;
             
         }
@@ -45,7 +52,11 @@ namespace crm.Business{
         public static string GetRandomEmail(){
 
             string[] domains = { "hotmail.com", "gmail.com", "aol.com", "mail.com" , "mail.kz", "yahoo.com", "abv.bg"};
-            return GenerateEmailName() + '@' + domains[new Random().Next(domains.Length)];
+            string email = "";
+            
+            while(new Context().Parents.ToList().Any(x => x.Email == email) || new Context().Teachers.ToList().Any(x => x.Email == email)) email = GenerateEmailName() + '@' + domains[new Random().Next(domains.Length)];
+
+            return email;
 
         }
 
@@ -90,7 +101,7 @@ namespace crm.Business{
 
             
             date[1] = new Random().Next(1, 13);
-            if(date[1] % 2 == 0)
+            if((date[1] % 2 == 0 && date[1] < 7) || (date[1] % 2 == 1 && date[1] > 7))
                 if(date[1] == 2)
                     if(DateTime.IsLeapYear(date[0])) date[2] = new Random().Next(1, 30);
                     else date[2] = new Random().Next(1, 29);
@@ -106,7 +117,7 @@ namespace crm.Business{
         }
 
         //Maybe make it generate random floating point amounts
-        public static float GetRandomAmount(int lowerEnd=20, int higherEnd=60){
+        public static double GetRandomAmount(int lowerEnd=20, int higherEnd=60){
             return new Random().Next(lowerEnd, higherEnd + 1);
         }
 
@@ -115,6 +126,30 @@ namespace crm.Business{
             string[] discounts = {"Big", "Medium", "Small"};
             return discounts[new Random().Next(discounts.Length)];
 
+        }
+
+        public static Guid GetRandomChildID(){
+            using(Context context = new Context()){
+                return context.Children.ToList()[new Random().Next(context.Children.ToList().Count)].ID;
+            }
+        }
+
+        public static Guid GetRandomParentID(){
+            using(Context context = new Context()){
+                return context.Parents.ToList()[new Random().Next(context.Parents.ToList().Count)].ID;
+            }
+        }
+
+        public static Guid GetRandomTeacherID(){
+            using(Context context = new Context()){
+                return context.Teachers.ToList()[new Random().Next(context.Teachers.ToList().Count)].ID;
+            }
+        }
+
+        public static Guid GetRandomCourseID(){
+            using(Context context = new Context()){
+                return context.Courses.ToList()[new Random().Next(context.Courses.ToList().Count)].ID;
+            }
         }
 
     }

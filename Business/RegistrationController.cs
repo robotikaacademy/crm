@@ -9,23 +9,31 @@ namespace crm.Business{
     static class RegistrationController{
 
         private static Context context;
-        private static InMemoryDB imdb = new InMemoryDB();
 
         public static void Registration(){
             using(context = new Context()){
+
                 Registration newRegistration = new Registration();
-                List<string> childrenNames = ChildController.GetChildren();
-                List<string> courseNames = CourseController.GetCourses();
                 newRegistration.ID = Guid.NewGuid();
-                newRegistration.ChildID = ChildController.GetChildID(childrenNames[new Random().Next(childrenNames.Count)]);
-                newRegistration.CourseID = CourseController.GetCourseID(courseNames[new Random().Next(courseNames.Count)]);
+
+                // Checks if the course has any space left
+                Course theCourse = CourseController.GetRandomCourse();
+                newRegistration.CourseID = theCourse.ID;
+                if(theCourse.AvailablePlaces == 0) throw new ArgumentException("No places left in the course");
+
+                // Checks if the child is already in the course
+                newRegistration.ChildID = ChildController.GetRandomChild().ID;
+                if(context.Registrations.ToList().Any(x => x.CourseID == theCourse.ID && x.ChildID == newRegistration.ChildID)) throw new ArgumentException("Child already in the course");
+
+                context.Courses.ToList().Find(x => x.ID == theCourse.ID).AvailablePlaces--;
                 newRegistration.Amount = RandomData.GetRandomAmount();
                 newRegistration.Discount = RandomData.GetRandomDiscount();
                 newRegistration.RegistrationDate = DateTime.Now;
                 newRegistration.Note = null;
-                // imdb.Registration.Add(newRegistration);
+
                 context.Registrations.Add(newRegistration);
                 context.SaveChanges();
+
             }
         }
 
@@ -37,10 +45,8 @@ namespace crm.Business{
 
         public static void ClearEntries(){
             using(context = new Context()){
-                while(context.Registrations.ToList().Count > 0){
+                while(context.Registrations.Count() > 0){
 
-                    // System.Console.WriteLine(imdb.Registration.First().ID);
-                    // imdb.Registration.Remove(imdb.Registration.First());
                     context.Registrations.Remove(context.Registrations.First());
                     context.SaveChanges();
                     

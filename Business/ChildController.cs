@@ -33,10 +33,16 @@ namespace crm.Business{
                 return context.Children.Select(x => x.Name).ToList();
             }
         }
+        
+        public static Child GetRandomChild(){
+            using(context = new Context()){
+                return context.Children.ToList()[new Random().Next(context.Children.ToList().Count)];
+            }
+        }
 
         public static void ClearEntries(){
             using(context = new Context()){
-                while(context.Children.ToList().Count > 0){
+                while(context.Children.Count() > 0){
 
                     context.Children.Remove(context.Children.First());
                     context.SaveChanges();

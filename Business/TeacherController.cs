@@ -38,7 +38,7 @@ namespace crm.Business{
 
         public static void ClearEntries(){
             using(context = new Context()){
-                while(context.Teachers.ToList().Count > 0){
+                while(context.Teachers.Count() > 0){
 
                     context.Teachers.Remove(context.Teachers.First());
                     context.SaveChanges();
