@@ -48,6 +48,11 @@ namespace crm.Presentation{
 
             }
 
+            // Phonetic/Approximate search
+            StartProcess process = new StartProcess();
+            string result = process.Start("Rose");
+            System.Console.WriteLine(result);
+
         }
 
     }

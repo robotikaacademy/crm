@@ -46,3 +46,17 @@ D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\runtimes\unix\lib\
 D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\Programs\Solutions\My Projects\crm\obj\Debug\netcoreapp3.1\crm.csproj.CopyComplete
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\Microsoft.Dynamic.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\Microsoft.Scripting.Metadata.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\Microsoft.Scripting.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\IronPython.Modules.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\IronPython.SQLite.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\IronPython.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\System.CodeDom.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\System.Windows.Extensions.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
