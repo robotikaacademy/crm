@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using crm.Data.Models;
 using System.Linq;
+using FuzzySharp;
 using crm.Data;
 using System;
 
@@ -27,10 +28,16 @@ namespace crm.Business{
                 return context.Children.ToList().Find(x => x.Name == name).ID;
             }
         }
-        
-        public static List<string> GetChildren(){
+
+        public static List<Child> GetChildrenByName(string name){
             using(context = new Context()){
-                return context.Children.Select(x => x.Name).ToList();
+                return context.Children.Where(x => x.Name == ApproximateSearch.GetTopResult(name, GetChildrenNames())).ToList();
+            }
+        }
+        
+        public static string[] GetChildrenNames(){
+            using(context = new Context()){
+                return context.Children.Select(x => x.Name).ToArray();
             }
         }
         

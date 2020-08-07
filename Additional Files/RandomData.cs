@@ -2,7 +2,7 @@ using System.Linq;
 using crm.Data;
 using System;
 
-namespace crm.Business{
+namespace crm{
 
     public static class RandomData{
 
