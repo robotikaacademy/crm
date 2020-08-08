@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using crm.Business;
+using System.Linq;
 
 namespace crm.Presentation{
     
@@ -47,6 +48,9 @@ namespace crm.Presentation{
             //         System.Console.WriteLine(e.Message);
             //     }
 
+            //     if(new System.Random().Next(2) == 1)
+            //         RegistrationController.PayTaks(new crm.Data.Context().Registrations.ToArray()[new crm.Data.Context().Registrations.Count() - 1].ID);
+
             // }
 
             // Phonetic/Approximate search
@@ -79,8 +83,36 @@ namespace crm.Presentation{
             // var registration = RegistrationController.GetRegistrationByDate(dtnew);
             // System.Console.WriteLine(registration.Discount);
 
-            var registration = RegistrationController.GetRegistrationByCourseName("Teaching da yung ones");
-            System.Console.WriteLine(registration.Discount);
+            // var registration = RegistrationController.GetRegistrationByCourseName("Teaching da yung ones");
+            // System.Console.WriteLine(registration.Discount);
+
+
+            // Statistics
+
+            // var children = RegistrationController.GetChildrenRegisteredInTimePeriod(new System.DateTime(2020, 1, 1), new System.DateTime(2021, 1, 1));
+            // foreach(var child in children)
+            //     System.Console.WriteLine($"{child.ID}       {child.Name}");
+            // System.Console.WriteLine(children.Count);
+
+            // var paid = RegistrationController.GetTaksesPaidInTimePeriod(new System.DateTime(2020, 1, 1), new System.DateTime(2021, 1, 1));
+            // foreach(double taks in paid)
+            //     System.Console.WriteLine(taks);
+            // System.Console.WriteLine(paid.Count);
+
+            // var notPaid = RegistrationController.GetTaksesNotPaidInTimePeriod(new System.DateTime(2020, 1, 1), new System.DateTime(2021, 1, 1));
+            // foreach(double taks in notPaid)
+            //     System.Console.WriteLine(taks);
+            // System.Console.WriteLine(notPaid.Count);
+
+            // var reminders = RegistrationController.RemindForTaks();
+            // foreach(var registration in reminders)
+            //     System.Console.WriteLine($"{registration.ChildID} duljish {registration.Amount} be tupak");
+            // System.Console.WriteLine(reminders.Count);
+
+            // var coursesWithoutTeacher = RegistrationController.GetCoursesWithRegisteredChildrenAndWithoutTeachers();
+            // foreach(var course in coursesWithoutTeacher)
+            //     System.Console.WriteLine($"{course.Name}    {course.AvailablePlaces}");
+            // System.Console.WriteLine(coursesWithoutTeacher.Count);
 
         }
 

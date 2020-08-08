@@ -1,3 +1,4 @@
+use crmDB;
 select * from dbo.Children;
 select * from dbo.Parents;
 select * from dbo.Teachers;

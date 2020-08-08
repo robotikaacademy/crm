@@ -44,6 +44,7 @@ IF object_id('Registrations') IS NULL
 		ChildID uniqueidentifier not null, foreign key(ChildID) references Children(ID),
 		CourseID uniqueidentifier not null, foreign key(CourseID) references Courses(ID),
 		Amount float,
+		Paid bit,
 		Discount varchar(10),
 		RegistrationDate date,
 		Note varchar(255)

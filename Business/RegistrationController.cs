@@ -27,6 +27,7 @@ namespace crm.Business{
 
                 context.Courses.ToList().Find(x => x.ID == theCourse.ID).AvailablePlaces--;
                 newRegistration.Amount = RandomData.GetRandomAmount();
+                newRegistration.Paid = false;
                 newRegistration.Discount = RandomData.GetRandomDiscount();
                 newRegistration.RegistrationDate = DateTime.Now;
                 newRegistration.Note = null;
@@ -85,6 +86,15 @@ namespace crm.Business{
             }
         }
 
+
+        public static void PayTaks(Guid id){
+            using(context = new Context()){
+                context.Registrations.Find(id).Paid = true;
+                context.SaveChanges();
+            }
+        }
+
+
         public static void ClearEntries(){
             using(context = new Context()){
                 while(context.Registrations.Count() > 0){
@@ -93,6 +103,46 @@ namespace crm.Business{
                     context.SaveChanges();
                     
                 }
+            }
+        }
+
+
+        // Statistics
+
+        public static List<Child> GetChildrenRegisteredInTimePeriod(DateTime start, DateTime end){
+            using(context = new Context()){
+                List<Child> children = new List<Child>();
+                foreach(Registration registration in context.Registrations.Where(y => y.RegistrationDate > start && y.RegistrationDate < end).ToList())
+                    children.Add(ChildController.GetChildById(registration.ChildID));
+                return children;
+            }
+        }
+
+        public static List<Registration> GetTaksesPaidInTimePeriod(DateTime start, DateTime end){
+            using(context = new Context()){
+                return context.Registrations.Where(x => x.RegistrationDate > start && x.RegistrationDate < end && x.Paid).ToList();
+            }
+        }
+
+        public static List<Registration> GetTaksesNotPaidInTimePeriod(DateTime start, DateTime end){
+            using(context = new Context()){
+                return context.Registrations.Where(x => x.RegistrationDate > start && x.RegistrationDate < end && !x.Paid).ToList();
+            }
+        }
+
+        public static List<Registration> RemindForTaks(){
+            using(context = new Context()){
+                List<Registration> registrationsNotPaidFor = new List<Registration>();
+                foreach(Registration registration in context.Registrations)
+                    if(!registration.Paid && (registration.RegistrationDate.Day + 3 == DateTime.Now.Day || registration.RegistrationDate.Day + 7 == DateTime.Now.Day))
+                        registrationsNotPaidFor.Add(registration);
+                return registrationsNotPaidFor;
+            }
+        }
+
+        public static List<Course> GetCoursesWithRegisteredChildrenAndWithoutTeachers(){
+            using(context = new Context()){
+                return context.Courses.Where(x => x.AvailablePlaces < 12 && !context.Course_Teachers.Any(y => y.CourseID == x.ID)).ToList();
             }
         }
 
