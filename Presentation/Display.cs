@@ -57,6 +57,31 @@ namespace crm.Presentation{
             // foreach(crm.Data.Models.Child child in children)
             //     System.Console.WriteLine(child.Name);
 
+            // var childrensCourses = RegistrationController.GetChildrensCourses();
+            // foreach(var item in childrensCourses)
+            // {
+            //     System.Console.WriteLine(item.Item1);
+            //     System.Console.WriteLine(item.Item2);
+            //     foreach(var item2 in item.Item2)
+            //     {
+            //         System.Console.WriteLine(item2);
+            //     }
+            // }
+
+            // var course = Course_TeachersController.GetCourseByTeacher("Joseph");
+            // System.Console.WriteLine(course.Name);
+
+
+            // DateTime dt= DateTime.Parse("2020-08-07");
+            // string  s2=dt.ToString("yyyy-MM-dd");
+            // DateTime dtnew = DateTime.Parse(s2);
+
+            // var registration = RegistrationController.GetRegistrationByDate(dtnew);
+            // System.Console.WriteLine(registration.Discount);
+
+            var registration = RegistrationController.GetRegistrationByCourseName("Teaching da yung ones");
+            System.Console.WriteLine(registration.Discount);
+
         }
 
     }

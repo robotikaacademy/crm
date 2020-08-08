@@ -30,6 +30,12 @@ namespace crm.Business{
                 return context.Courses.ToList().Find(x => x.Name == name).ID;
             }
         }
+
+        public static Course GetCourseById(Guid id){
+            using(context = new Context()){
+                return context.Courses.Find(id);
+            }
+        }
         
         public static List<string> GetCourses(){
             using(context = new Context()){

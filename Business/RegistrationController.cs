@@ -43,6 +43,48 @@ namespace crm.Business{
             }
         }
 
+        public static Registration GetRegistrationByDate(DateTime searchDate){
+            using(context = new Context()){
+                return context.Registrations.Where(x => x.RegistrationDate == searchDate).FirstOrDefault();
+            }
+        }
+
+        //има повече от един курс трябва да връща лист!
+        public static Registration GetRegistrationByCourseName(string name){
+            using(context = new Context()){
+                var courseId = CourseController.GetCourseID(name);
+                return context.Registrations.Where(x => x.CourseID == courseId).FirstOrDefault();
+            }
+        }
+
+        //не работи още ххаххха
+        public static List<Tuple<Guid, string, List<string>>> GetChildrensCourses (){
+            using(context = new Context()){
+                List<Tuple<Guid, string, List<string>>> childrensCourses = new List<Tuple<Guid, string, List<string>>>();
+                //context.Registrations.Select(x => )
+                foreach(var item in context.Registrations){
+
+                    Guid childId = item.ChildID;
+                    var childName = ChildController.GetChildById(childId).Name;
+                    List<string> childsCourses = new List<string>();
+
+                    foreach(var item1 in context.Registrations){
+
+                        if(item1.ChildID == childId){
+                            childsCourses.Add(CourseController.GetCourseById(item1.CourseID).Name);
+                        }
+
+                    }
+
+                    var childAndCourses = Tuple.Create(childId, childName, childsCourses);
+                    childrensCourses.Add(childAndCourses);
+
+                }
+
+                return childrensCourses;
+            }
+        }
+
         public static void ClearEntries(){
             using(context = new Context()){
                 while(context.Registrations.Count() > 0){

@@ -22,6 +22,15 @@ namespace crm.Business{
             }
         }
 
+        public static Course GetCourseByTeacher(string teacherName){
+            using(context = new Context()){
+                Guid teacherId = TeacherController.GetTeacherID(teacherName);
+                Course_Teacher course_Teacher = context.Course_Teachers.Where(x => x.TeacherID == teacherId).FirstOrDefault();
+                
+                return CourseController.GetCourseById(course_Teacher.CourseID);
+            }
+        }
+
         public static void ClearEntries(){
             using(context = new Context()){
                 while(context.Course_Teachers.Count() > 0){

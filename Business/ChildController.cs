@@ -29,6 +29,12 @@ namespace crm.Business{
             }
         }
 
+        public static Child GetChildById(Guid id){
+            using(context = new Context()){
+                return context.Children.Find(id);
+            }
+        }
+
         public static List<Child> GetChildrenByName(string name){
             using(context = new Context()){
                 return context.Children.Where(x => x.Name == ApproximateSearch.GetTopResult(name, GetChildrenNames())).ToList();
