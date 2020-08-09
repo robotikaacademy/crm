@@ -37,9 +37,9 @@ namespace crm.Business{
             }
         }
         
-        public static List<string> GetCourses(){
+        public static string[] GetCourses(){
             using(context = new Context()){
-                return context.Courses.Select(x => x.Name).ToList();
+                return context.Courses.Select(x => x.Name).ToArray();
             }
         }
 
@@ -57,6 +57,17 @@ namespace crm.Business{
                     context.SaveChanges();
                     
                 }
+            }
+        }
+
+        public static Course[] GetOnGoingCourses(int[] startFilter=null, int[] endFilter=null){
+            using(context = new Context()){
+                Course[] filteredCourses = context.Courses.Where(x => x.DateStarted >= DateTime.Now && x.DateFinished <= DateTime.Now).ToArray();
+                if(startFilter != null)
+                    filteredCourses = filteredCourses.Where(x => x.DateStarted >= new DateTime(startFilter[0], startFilter[1], startFilter[2])).ToArray();
+                if(endFilter != null)
+                    filteredCourses = filteredCourses.Where(x => x.DateFinished <= new DateTime(endFilter[0], endFilter[1], endFilter[2])).ToArray();
+                return filteredCourses;
             }
         }
 

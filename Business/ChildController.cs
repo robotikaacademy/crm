@@ -35,9 +35,9 @@ namespace crm.Business{
             }
         }
 
-        public static List<Child> GetChildrenByName(string name){
+        public static Child[] GetChildrenByName(string name){
             using(context = new Context()){
-                return context.Children.Where(x => x.Name == ApproximateSearch.GetTopResult(name, GetChildrenNames())).ToList();
+                return context.Children.Where(x => x.Name == ApproximateSearch.GetTopResult(name, GetChildrenNames())).ToArray();
             }
         }
         

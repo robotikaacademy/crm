@@ -29,9 +29,9 @@ namespace crm.Business{
             }
         }
 
-        public static List<string> GetParents(){
+        public static string[] GetParents(){
             using(context = new Context()){
-                return context.Parents.Select(x => x.Name).ToList();
+                return context.Parents.Select(x => x.Name).ToArray();
             }
         }
 
@@ -43,6 +43,13 @@ namespace crm.Business{
                     context.SaveChanges();
                     
                 }
+            }
+        }
+
+        public static string[] GetContactsOfParent(Guid id){
+            using(context = new Context()){
+                Parent parent = context.Parents.Find(id);
+                return new string[]{parent.Phone, parent.Email};
             }
         }
 

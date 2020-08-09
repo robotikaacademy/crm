@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using crm.Business;
-using System.Linq;
 
 namespace crm.Presentation{
     
@@ -92,27 +90,33 @@ namespace crm.Presentation{
             // var children = RegistrationController.GetChildrenRegisteredInTimePeriod(new System.DateTime(2020, 1, 1), new System.DateTime(2021, 1, 1));
             // foreach(var child in children)
             //     System.Console.WriteLine($"{child.ID}       {child.Name}");
-            // System.Console.WriteLine(children.Count);
+            // System.Console.WriteLine(children.Length);
 
             // var paid = RegistrationController.GetTaksesPaidInTimePeriod(new System.DateTime(2020, 1, 1), new System.DateTime(2021, 1, 1));
             // foreach(double taks in paid)
             //     System.Console.WriteLine(taks);
-            // System.Console.WriteLine(paid.Count);
+            // System.Console.WriteLine(paid.Length);
 
             // var notPaid = RegistrationController.GetTaksesNotPaidInTimePeriod(new System.DateTime(2020, 1, 1), new System.DateTime(2021, 1, 1));
             // foreach(double taks in notPaid)
             //     System.Console.WriteLine(taks);
-            // System.Console.WriteLine(notPaid.Count);
+            // System.Console.WriteLine(notPaid.Length);
 
             // var reminders = RegistrationController.RemindForTaks();
             // foreach(var registration in reminders)
             //     System.Console.WriteLine($"{registration.ChildID} duljish {registration.Amount} be tupak");
-            // System.Console.WriteLine(reminders.Count);
+            // System.Console.WriteLine(reminders.Length);
 
             // var coursesWithoutTeacher = RegistrationController.GetCoursesWithRegisteredChildrenAndWithoutTeachers();
             // foreach(var course in coursesWithoutTeacher)
             //     System.Console.WriteLine($"{course.Name}    {course.AvailablePlaces}");
-            // System.Console.WriteLine(coursesWithoutTeacher.Count);
+            // System.Console.WriteLine(coursesWithoutTeacher.Length);
+
+            
+            // Parent contacts
+
+            // var contacts = ParentController.GetContactsOfParent(ParentController.GetParentID(ParentController.GetParents()[0]));
+            // System.Console.WriteLine($"{contacts[0]}        {contacts[1]}");
 
         }
 

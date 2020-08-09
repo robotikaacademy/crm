@@ -30,9 +30,9 @@ namespace crm.Business{
             }
         }
         
-        public static List<string> GetTeachers(){
+        public static string[] GetTeachers(){
             using(context = new Context()){
-                return context.Teachers.Select(x => x.Name).ToList();
+                return context.Teachers.Select(x => x.Name).ToArray();
             }
         }
 
