@@ -118,6 +118,12 @@ namespace crm.Presentation{
             // var contacts = ParentController.GetContactsOfParent(ParentController.GetParentID(ParentController.GetParents()[0]));
             // System.Console.WriteLine($"{contacts[0]}        {contacts[1]}");
 
+            // var courses = CourseController.GetOnGoingCourses();
+            // CourseController.ExtractToCSV(courses);
+            // foreach(var course in courses)
+            //     System.Console.WriteLine(course.Name);
+            // System.Console.WriteLine(courses.Length);
+
         }
 
     }

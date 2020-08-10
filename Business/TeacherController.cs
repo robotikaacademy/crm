@@ -47,6 +47,12 @@ namespace crm.Business{
             }
         }
 
+        public static Course[] GetCoursesOfTeacher(Guid id){
+            using(context = new Context()){
+                return context.Courses.Where(x => context.Course_Teachers.Where(y => y.TeacherID == id).Any(y => y.CourseID == x.ID)).ToArray();
+            }
+        }
+
     }
 
 }

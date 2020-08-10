@@ -17,12 +17,12 @@ namespace crm.Business{
                 newRegistration.ID = Guid.NewGuid();
 
                 // Checks if the course has any space left
-                Course theCourse = CourseController.GetRandomCourse();
+                Course theCourse = CourseController.GetCourseById(RandomData.GetRandomCourseID());
                 newRegistration.CourseID = theCourse.ID;
                 if(theCourse.AvailablePlaces == 0) throw new ArgumentException("No places left in the course");
 
                 // Checks if the child is already in the course
-                newRegistration.ChildID = ChildController.GetRandomChild().ID;
+                newRegistration.ChildID = RandomData.GetRandomChildID();
                 if(context.Registrations.ToList().Any(x => x.CourseID == theCourse.ID && x.ChildID == newRegistration.ChildID)) throw new ArgumentException("Child already in the course");
 
                 context.Courses.ToList().Find(x => x.ID == theCourse.ID).AvailablePlaces--;
@@ -53,7 +53,7 @@ namespace crm.Business{
         //има повече от един курс трябва да връща лист!
         public static Registration GetRegistrationByCourseName(string name){
             using(context = new Context()){
-                var courseId = CourseController.GetCourseID(name);
+                Guid courseId = CourseController.GetCourseByName(name).ID;
                 return context.Registrations.Where(x => x.CourseID == courseId).FirstOrDefault();
             }
         }

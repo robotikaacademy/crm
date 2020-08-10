@@ -23,13 +23,7 @@ namespace crm.Business{
             }
         }
 
-        public static Guid GetParentID(string name){
-            using(context = new Context()){
-                return context.Parents.ToList().Find(x => x.Name == name).ID;
-            }
-        }
-
-        public static string[] GetParents(){
+        private static string[] GetParentsNames(){
             using(context = new Context()){
                 return context.Parents.Select(x => x.Name).ToArray();
             }
@@ -50,6 +44,18 @@ namespace crm.Business{
             using(context = new Context()){
                 Parent parent = context.Parents.Find(id);
                 return new string[]{parent.Phone, parent.Email};
+            }
+        }
+
+        public static Parent SearchForParentByPhoneOrEmail(string phone=null, string email=null){
+            using(context = new Context()){
+                return context.Parents.ToList().Find(x => x.Phone == phone || x.Email == email);
+            }
+        }
+
+        public static Parent SearchParentByName(string name){
+            using(context = new Context()){
+                return context.Parents.ToList().Find(x => x.Name == ApproximateSearch.GetTopResult(name, GetParentsNames()));
             }
         }
 

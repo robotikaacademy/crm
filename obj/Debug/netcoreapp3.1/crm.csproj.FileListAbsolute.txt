@@ -47,3 +47,4 @@ D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\runtimes\win\lib\n
 D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\Programs\Solutions\My Projects\crm\obj\Debug\netcoreapp3.1\crm.csproj.CopyComplete
 D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\FuzzySharp.dll
+D:\Programs\Solutions\My Projects\crm\bin\Debug\netcoreapp3.1\CsvHelper.dll

@@ -22,34 +22,16 @@ namespace crm.Business{
                 context.SaveChanges();
             }
         }
-
-        public static Guid GetChildID(string name){
+        
+        private static string[] GetChildrenNames(){
             using(context = new Context()){
-                return context.Children.ToList().Find(x => x.Name == name).ID;
+                return context.Children.Select(x => x.Name).ToArray();
             }
         }
 
         public static Child GetChildById(Guid id){
             using(context = new Context()){
                 return context.Children.Find(id);
-            }
-        }
-
-        public static Child[] GetChildrenByName(string name){
-            using(context = new Context()){
-                return context.Children.Where(x => x.Name == ApproximateSearch.GetTopResult(name, GetChildrenNames())).ToArray();
-            }
-        }
-        
-        public static string[] GetChildrenNames(){
-            using(context = new Context()){
-                return context.Children.Select(x => x.Name).ToArray();
-            }
-        }
-        
-        public static Child GetRandomChild(){
-            using(context = new Context()){
-                return context.Children.ToList()[new Random().Next(context.Children.ToList().Count)];
             }
         }
 
@@ -61,6 +43,19 @@ namespace crm.Business{
                     context.SaveChanges();
                     
                 }
+            }
+        }
+
+
+        public static Parent[] GetParentsOfChild(Guid id){
+            using(context = new Context()){
+                return context.Parents.Where(x => context.Child_Parents.Where(y => y.ChildId == id).Any(y => y.ParentId == x.ID)).ToArray();
+            }
+        }
+
+        public static Child[] SearchChildrenByName(string name){
+            using(context = new Context()){
+                return context.Children.Where(x => x.Name == ApproximateSearch.GetTopResult(name, GetChildrenNames())).ToArray();
             }
         }
 
