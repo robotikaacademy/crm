@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using crm.Data.Models;
 using System.Linq;
 using crm.Data;
@@ -10,37 +9,9 @@ namespace crm.Business{
 
         private static Context context;
 
-        public static void Registration(){
+        public static Tuple<Guid, Guid>[] GetRegistrations(){
             using(context = new Context()){
-
-                Registration newRegistration = new Registration();
-                newRegistration.ID = Guid.NewGuid();
-
-                // Checks if the course has any space left
-                Course theCourse = CourseController.GetCourseById(RandomData.GetRandomCourseID());
-                newRegistration.CourseID = theCourse.ID;
-                if(theCourse.AvailablePlaces == 0) throw new ArgumentException("No places left in the course");
-
-                // Checks if the child is already in the course
-                newRegistration.ChildID = RandomData.GetRandomChildID();
-                if(context.Registrations.ToList().Any(x => x.CourseID == theCourse.ID && x.ChildID == newRegistration.ChildID)) throw new ArgumentException("Child already in the course");
-
-                context.Courses.ToList().Find(x => x.ID == theCourse.ID).AvailablePlaces--;
-                newRegistration.Amount = RandomData.GetRandomAmount();
-                newRegistration.Paid = false;
-                newRegistration.Discount = RandomData.GetRandomDiscount();
-                newRegistration.RegistrationDate = DateTime.Now;
-                newRegistration.Note = null;
-
-                context.Registrations.Add(newRegistration);
-                context.SaveChanges();
-
-            }
-        }
-
-        public static List<Tuple<Guid, Guid>> GetRegistrations(){
-            using(context = new Context()){
-                return context.Registrations.Select(x => new Tuple<Guid, Guid>(x.ChildID, x.CourseID)).ToList();
+                return context.Registrations.Select(x => new Tuple<Guid, Guid>(x.ChildID, x.CourseID)).ToArray();
             }
         }
 
@@ -59,15 +30,15 @@ namespace crm.Business{
         }
 
         //не работи още ххаххха
-        public static List<Tuple<Guid, string, List<string>>> GetChildrensCourses (){
+        public static System.Collections.Generic.List<Tuple<Guid, string, System.Collections.Generic.List<string>>> GetChildrensCourses (){
             using(context = new Context()){
-                List<Tuple<Guid, string, List<string>>> childrensCourses = new List<Tuple<Guid, string, List<string>>>();
+                System.Collections.Generic.List<Tuple<Guid, string, System.Collections.Generic.List<string>>> childrensCourses = new System.Collections.Generic.List<Tuple<Guid, string, System.Collections.Generic.List<string>>>();
                 //context.Registrations.Select(x => )
                 foreach(var item in context.Registrations){
 
                     Guid childId = item.ChildID;
                     var childName = ChildController.GetChildById(childId).Name;
-                    List<string> childsCourses = new List<string>();
+                    System.Collections.Generic.List<string> childsCourses = new System.Collections.Generic.List<string>();
 
                     foreach(var item1 in context.Registrations){
 
@@ -93,19 +64,6 @@ namespace crm.Business{
                 context.SaveChanges();
             }
         }
-
-
-        public static void ClearEntries(){
-            using(context = new Context()){
-                while(context.Registrations.Count() > 0){
-
-                    context.Registrations.Remove(context.Registrations.First());
-                    context.SaveChanges();
-                    
-                }
-            }
-        }
-
 
         // Statistics
 

@@ -10,33 +10,9 @@ namespace crm.Business{
 
         private static Context context;
 
-        public static void AddParent(){
-            using(context = new Context()){
-                Parent newParent = new Parent();
-                newParent.ID = Guid.NewGuid();
-                newParent.Name = RandomData.GetRandomName();
-                newParent.Phone = RandomData.GetRandomPhoneNumber();
-                newParent.Email = RandomData.GetRandomEmail();
-                newParent.Note = null;
-                context.Parents.Add(newParent);
-                context.SaveChanges();
-            }
-        }
-
         private static string[] GetParentsNames(){
             using(context = new Context()){
                 return context.Parents.Select(x => x.Name).ToArray();
-            }
-        }
-
-        public static void ClearEntries(){
-            using(context = new Context()){
-                while(context.Parents.Count() > 0){
-
-                    context.Parents.Remove(context.Parents.First());
-                    context.SaveChanges();
-                    
-                }
             }
         }
 

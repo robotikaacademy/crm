@@ -9,25 +9,6 @@ namespace crm.Business{
 
         private static Context context;
 
-        public static void AddCourse(){
-
-            using(context = new Context()){
-
-                Course newCourse = new Course();
-                newCourse.ID = Guid.NewGuid();
-                newCourse.Type = RandomData.GetRandomCourseType();
-                newCourse.Name = RandomData.GetRandomCourseName(newCourse.Type);
-                newCourse.AgeGroup = RandomData.GetRandomAgeGroup();
-                newCourse.DateStarted = RandomData.GetRandomStartDate();
-                newCourse.DateFinished = newCourse.DateStarted.AddMonths(3);
-                newCourse.AvailablePlaces = 12;
-                context.Courses.Add(newCourse);
-                context.SaveChanges();
-
-            }
-
-        }
-
         private static string[] GetCoursesNames(){
 
             using(context = new Context())
@@ -46,18 +27,6 @@ namespace crm.Business{
 
             using(context = new Context())
                 return context.Courses.Find(id);
-
-        }
-        
-        public static void ClearEntries(){
-
-            using(context = new Context())
-                while(context.Courses.Count() > 0){
-
-                    context.Courses.Remove(context.Courses.First());
-                    context.SaveChanges();
-                    
-                }
 
         }
 
